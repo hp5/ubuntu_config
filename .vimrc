@@ -47,6 +47,7 @@ filetype plugin indent on   " 允许补全
 set background=dark
 "colorscheme solarized
 colorscheme molokai
+"colorscheme forest-night
 
 " 定义前缀键，即<leader>
 let mapleader=";"
