@@ -29,8 +29,9 @@ Plugin 'sjl/gundo.vim'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'fholgado/minibufexpl.vim'
-Plugin 'mbbill/echofunc'
 Plugin 'tenfyzhong/CompleteParameter.vim'
+Plugin 'ianva/vim-youdao-translater'
+Plugin 'yianwillis/vimcdoc'
 Plugin 'lilydjwg/fcitx.vim'
 Plugin 'indexer.tar.gz'
 Plugin 'DfrankUtil'
@@ -52,12 +53,6 @@ colorscheme molokai
 " 定义前缀键，即<leader>
 let mapleader=";"
 
-"" 开启文件类型检测
-"filetype on
-"" 根据不同的文件类型加载对应插件
-"filetype plugin on
-"" 自适应不同语言的智能缩进
-"filetype indent on
 " 语法高亮开启
 syntax enable
 " 允许使用指定语法高亮配色方案替换默认方案
@@ -65,8 +60,9 @@ syntax on
 
 " 定义快捷键快速编辑.vimrc
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
-" 定义快捷键退出输入模式
+" 定义快捷键退出输入以及可视模式
 inoremap <leader>ff <esc>
+vnoremap <leader>ff <esc>
 " 定义快捷键到行首和行尾
 nnoremap LB 0
 nnoremap LE $
@@ -96,10 +92,6 @@ nnoremap <leader>jw <C-W>j
 nnoremap <leader>hw <C-W>h
 " 定义快捷键在结对符之间跳转
 nnoremap <leader>M %
-" 正向遍历同名标签
-nnoremap <leader>tn :tnext<CR>
-" 反向遍历同名标签
-nnoremap <leader>tp :tprevious<CR>
 " 定义快捷键消除行尾空白字符，包括空格、制表符以及DOS换行符
 nnoremap <leader>es :%s/\s*\r\?$<CR>:noh<CR><C-o>
 " 定义快捷键取消高亮状态
@@ -161,10 +153,12 @@ set number
 " 高亮显示当前行/列
 set cursorline
 set cursorcolumn
-" 设置高亮行列颜色
+" 设置高亮行列配色方案
 highlight CursorColumn term=reverse ctermbg=234 guibg=#293739 
 " 禁止折行
 set nowrap
+" 允许隐藏未保存buffer
+set hidden
 " 基于语法、缩进或者标记进行代码折叠
 "set foldmethod=syntax
 set foldmethod=indent
@@ -204,6 +198,7 @@ autocmd BufReadPost *
     \ if line("'\"") >= 1 && line("'\"") <= line("$")
     \ |   execute "normal! g'\""
     \ |endif
+
 " 让配置变更立即生效
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
@@ -486,7 +481,8 @@ nnoremap <leader>ud :GundoToggle<CR>
 " 让gundo使用python3
 let g:gundo_prefer_python3=1
 
-"" echofunc : 显示函数参数列表
-"" 在状态栏中显示函数名称
-"set statusline=%{EchoFuncGetStatusLine()}
-"let g:EchoFuncShowOnStatus=1
+" vim-youdao-translater : 使用有道在线词典实现翻译
+" 分别设置在一般模式、可视模式和命令模式下的查询快捷键
+nnoremap <silent> <leader>tn :<C-u>Ydc<CR>
+vnoremap <silent> <leader>tv :<C-u>Ydv<CR>
+noremap <leader>tc :<C-u>Yde<CR>
