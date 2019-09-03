@@ -29,7 +29,6 @@ Plugin 'sjl/gundo.vim'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'fholgado/minibufexpl.vim'
-Plugin 'tenfyzhong/CompleteParameter.vim'
 Plugin 'ianva/vim-youdao-translater'
 Plugin 'yianwillis/vimcdoc'
 Plugin 'lilydjwg/fcitx.vim'
@@ -81,7 +80,7 @@ nnoremap <leader>WQ :wa<CR>:q<CR>
 " 不做任何保存直接退出vim
 nnoremap <leader>Q :qa!<CR>
 " 依次遍历子窗口
-nnoremap nw <C-W><C-W>
+nnoremap <leader>nw <C-W><C-W>
 " 跳转至右方窗口
 nnoremap <leader>lw <C-W>l
 " 跳转至上方窗口
@@ -109,6 +108,8 @@ nnoremap <leader>6 :b 6<CR>
 nnoremap <leader>7 :b 7<CR>
 nnoremap <leader>8 :b 8<CR>
 nnoremap <leader>9 :b 9<CR>
+" 设置查找光标下字符串快捷键
+nnoremap <leader>lo *N
 " 启用:Man命令查看各类man信息
 source $VIMRUNTIME/ftplugin/man.vim
 " 定义:Man命令查看各类man信息的快捷键
@@ -310,6 +311,10 @@ let g:protodefprotogetter='~/.vim/bundle/vim-protodef/pullproto.pl'
 " 成员函数的实现数需与声明顺序一致
 let g:disable_protodef_sorting=1
 
+" vim-fswitch : 快速跳转到对应头文件
+" 设置跳转快捷键
+nnoremap <leader>sw :FSHere<CR>
+
 " vim-signature : 书签可视化工具
 " 设置快捷键
 let g:SignatureMap={
@@ -396,11 +401,11 @@ nnoremap <leader>st :CtrlSFToggle<CR>
 
 " vim-multiple-cursors : 多光标编辑功能
 " 设置开始多光标快捷键
-let g:multi_cursor_start_word_key='<S-n>'
+let g:multi_cursor_start_word_key='<C-n>'
 " 设置跳到下一个光标位置快捷键
-let g:multi_cursor_next_key='<S-n>'
+let g:multi_cursor_next_key='<C-n>'
 " 设置跳过下一个光标位置快捷键
-let g:multi_cursor_skip_key='<S-k>'
+let g:multi_cursor_skip_key='<C-p>'
 
 " UltiSnips : 提供常用模板结构补全
 " 设置ultisnips模板所在目录
