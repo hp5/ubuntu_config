@@ -332,7 +332,7 @@ let g:SignatureMap={
         \ 'GotoNextLineltByPos'   :   "]'",
         \ 'GotoPrevLineByPos'   :   "['",
         \ 'GotoNextSpotByPos'   :   "m>",
-        \ 'GotpPrevSpotByPos'   :   "m<",
+        \ 'GotoPrevSpotByPos'   :   "m<",
         \ 'GotoNextMarker'      :   "[+",
         \ 'GotoPrevMarker'      :   "[-",
         \ 'GotoNextMarkerAny'   :   "]=",
