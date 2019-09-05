@@ -295,7 +295,7 @@ let g:airline_powerline_fonts=1
 
 " Guides : 将相同缩进的代码关联起来
 " 快捷键i开/关缩进可视化
-nnoremap <silent> <leader>i <Plug>IndentGuidesToggle
+nmap <silent> <leader>id <Plug>IndentGuidesToggle
 " 随vim启动
 let g:indent_guides_enable_on_vim_startup=1
 " 从第二层开始可视化显示缩进
