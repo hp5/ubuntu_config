@@ -31,7 +31,6 @@ Plugin 'suan/vim-instant-markdown'
 Plugin 'fholgado/minibufexpl.vim'
 Plugin 'ianva/vim-youdao-translater'
 Plugin 'yianwillis/vimcdoc'
-Plugin 'lilydjwg/fcitx.vim'
 Plugin 'indexer.tar.gz'
 Plugin 'DfrankUtil'
 Plugin 'vimprj'
@@ -110,6 +109,8 @@ nnoremap <leader>8 :b 8<CR>
 nnoremap <leader>9 :b 9<CR>
 " 设置查找光标下字符串快捷键
 nnoremap <leader>lo *N
+" 设置全屏开/关快捷键
+nnoremap <silent> <F11> :call ToggleFullscreen()<CR>
 " 启用:Man命令查看各类man信息
 source $VIMRUNTIME/ftplugin/man.vim
 " 定义:Man命令查看各类man信息的快捷键
@@ -199,9 +200,10 @@ autocmd BufReadPost *
     \ if line("'\"") >= 1 && line("'\"") <= line("$")
     \ |   execute "normal! g'\""
     \ |endif
-
 " 让配置变更立即生效
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
+" 启动vim时自动全屏
+autocmd VimEnter * call ToggleFullscreen()
 
 
 
@@ -285,6 +287,11 @@ function! SetFileInfo()
         normal 12G
     endif
 endfunc 
+
+"""""""""""""""""""""""""""""""" <全屏函数> """""""""""""""""""""""""""""""""
+function! ToggleFullscreen()
+    call system("wmctrl -ir " . v:windowid . " -b toggle,fullscreen")
+endfunc
 
 
 
@@ -463,8 +470,11 @@ let NERDTreeAutoDeleteBuffer=1
 " MiniBufExplorer : 管理buffer窗口
 " 设置快捷键显示/隐藏minibufexplore窗口
 nnoremap <leader>bl :MBEToggle<CR>
-" 设置当前激活buffer颜色
+" 设置当前激活buffer配色
+highlight link MBEVisibleNormal Statement
+highlight link MBEVisibleChanged Statement
 highlight link MBEVisibleActiveNormal Statement
+highlight link MBEVisibleActiveChanged Statement
 let g:did_minibufexplorer_syntax_inits=1
 " 开启自动打开minibufexplorer
 let g:MiniBufExplAutoStart=1

@@ -8,10 +8,18 @@ case $- in
       *) return;;
 esac
 
+# add ipp and opencv root.
 export IPPROOT=/home/hp5/Documents/intel/ipp
 export OPENCVROOT=/home/hp5/Documents/openCV
 export LD_LIBRARY_PATH=$IPPROOT/lib/intel64_lin:$OPENCVROOT/lib:/usr/lib
 export LIBRARY_PATH=$IPPROOT/lib/intel64_lin:$OPENCVROOT/lib
+# add qt root.
+export QTROOT=/home/hp5/Documents/Qt/5.9.2/gcc_64
+export PATH=$QTROOT/bin:$PATH
+export LD_LIBRARY_PATH=$QTROOT/lib:$LD_LIBRARY_PATH
+# add golang root
+#export GOROOT=/usr/lib/go
+#export PATH=$GOROOT/bin:$PATH
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
