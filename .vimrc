@@ -31,6 +31,7 @@ Plugin 'suan/vim-instant-markdown'
 Plugin 'fholgado/minibufexpl.vim'
 Plugin 'ianva/vim-youdao-translater'
 Plugin 'yianwillis/vimcdoc'
+Plugin 'jeffkreeftmeijer/vim-numbertoggle'
 Plugin 'indexer.tar.gz'
 Plugin 'DfrankUtil'
 Plugin 'vimprj'
@@ -181,7 +182,7 @@ set softtabstop=4
 " 启动vim时关闭代码折叠
 set nofoldenable
 " 设置vim的自动文本格式化
-set formatoptions=tcql
+set formatoptions=tql
 " 设置vim环境保存项
 set sessionoptions="blank,buffers,globals,localoptions,tabpages,sesdir,folds,help,options,resize,winpos,winsize"
 " 保存undo历史
@@ -202,8 +203,6 @@ autocmd BufReadPost *
     \ |endif
 " 让配置变更立即生效
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
-" 启动vim时自动全屏
-autocmd VimEnter * call ToggleFullscreen()
 
 
 
@@ -501,3 +500,14 @@ let g:gundo_prefer_python3=1
 nnoremap <silent> <leader>tn :<C-u>Ydc<CR>
 vnoremap <silent> <leader>tv :<C-u>Ydv<CR>
 noremap <leader>tc :<C-u>Yde<CR>
+
+" vim-numbertoggle : 显示相对行号
+" 设置切换行号显示模式快捷键
+nnoremap <silent> <leader>no :set relativenumber<CR>
+nnoremap <silent> <leader>nc :set relativenumber!<CR>
+
+
+
+""""""""""""""""" Behind this line is for some test function """""""""""""""""
+set runtimepath+=/home/hp5/Documents/myPlugins/mpc
+
