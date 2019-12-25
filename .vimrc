@@ -32,6 +32,8 @@ Plugin 'fholgado/minibufexpl.vim'
 Plugin 'ianva/vim-youdao-translater'
 Plugin 'yianwillis/vimcdoc'
 Plugin 'jeffkreeftmeijer/vim-numbertoggle'
+Plugin 'LucHermitte/lh-vim-lib'
+Plugin 'LucHermitte/VimFold4C'
 Plugin 'indexer.tar.gz'
 Plugin 'DfrankUtil'
 Plugin 'vimprj'
@@ -164,7 +166,7 @@ set nowrap
 set hidden
 " 基于语法、缩进或者标记进行代码折叠
 "set foldmethod=syntax
-set foldmethod=indent
+"set foldmethod=indent
 " 使退格键(backspace)能够正常处理indent, eol, start等
 set backspace=2
 " 光标移动到buffer顶端和底端时保持3行距离
@@ -505,6 +507,18 @@ noremap <leader>tc :<C-u>Yde<CR>
 " 设置切换行号显示模式快捷键
 nnoremap <silent> <leader>no :set relativenumber<CR>
 nnoremap <silent> <leader>nc :set relativenumber!<CR>
+
+" VimFold4C : 适用于c/c++的折叠插件
+let g:fold_options = {
+   \ 'fallback_method' : { 'line_threshold' : 2000, 'method' : 'syntax' },
+   \ 'fold_blank': 0,
+   \ 'fold_includes': 0,
+   \ 'max_foldline_length': 'win',
+   \ 'merge_comments' : 1,
+   \ 'show_if_and_else': 1,
+   \ 'strip_namespaces': 1,
+   \ 'strip_template_arguments': 1
+   \ }
 
 
 
