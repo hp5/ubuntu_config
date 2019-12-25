@@ -3,3 +3,5 @@
 	name = hp5
 [status]
     showUntrackedFiles = no
+[push]
+	default = simple
