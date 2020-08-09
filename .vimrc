@@ -8,7 +8,6 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'sainnhe/vim-color-forest-night'
 Plugin 'tomasr/molokai'
 Plugin 'vim-airline/vim-airline'
 Plugin 'octol/vim-cpp-enhanced-highlight'
@@ -33,7 +32,6 @@ Plugin 'ianva/vim-youdao-translater'
 Plugin 'yianwillis/vimcdoc'
 Plugin 'jeffkreeftmeijer/vim-numbertoggle'
 Plugin 'LucHermitte/lh-vim-lib'
-Plugin 'LucHermitte/VimFold4C'
 Plugin 'indexer.tar.gz'
 Plugin 'DfrankUtil'
 Plugin 'vimprj'
@@ -49,7 +47,6 @@ filetype plugin indent on   " 允许补全
 set background=dark
 "colorscheme solarized
 colorscheme molokai
-"colorscheme forest-night
 
 " 定义前缀键，即<leader>
 let mapleader=";"
@@ -100,6 +97,8 @@ nnoremap <leader>nh :noh<CR>
 " 设置切换buffer快捷键
 nnoremap <leader>bp :bp<CR>
 nnoremap <leader>bn :bn<CR>
+" 设置函数体折叠快捷键
+nnoremap <leader>zf zf%
 " 设置不同编号buffer间切换快捷键
 nnoremap <leader>1 :b 1<CR>
 nnoremap <leader>2 :b 2<CR>
@@ -147,7 +146,7 @@ set guioptions-=m
 set guioptions-=T
 " 设置状态栏颜色
 set t_Co=256
-" 设置每个窗口都有各自的状态栏
+" 设置每个窗口都显示状态栏
 set laststatus=2
 " 设置命令栏高度
 set cmdheight=2
@@ -158,15 +157,12 @@ set number
 " 高亮显示当前行/列
 set cursorline
 set cursorcolumn
-" 设置高亮行列配色方案
+" 设置高亮行的配色方案
 highlight CursorColumn term=reverse ctermbg=234 guibg=#293739 
 " 禁止折行
 set nowrap
-" 允许隐藏未保存buffer
+" 允许隐藏未保存的buffer
 set hidden
-" 基于语法、缩进或者标记进行代码折叠
-"set foldmethod=syntax
-"set foldmethod=indent
 " 使退格键(backspace)能够正常处理indent, eol, start等
 set backspace=2
 " 光标移动到buffer顶端和底端时保持3行距离
@@ -181,10 +177,12 @@ set tabstop=4
 set shiftwidth=4
 " 让vim把连续数量的空格视为一个制表符
 set softtabstop=4
+" 设置代码折叠模式
+set foldmethod=manual
 " 启动vim时关闭代码折叠
-set nofoldenable
+set foldenable
 " 设置vim的自动文本格式化
-set formatoptions=tql
+set formatoptions=tcql
 " 设置vim环境保存项
 set sessionoptions="blank,buffers,globals,localoptions,tabpages,sesdir,folds,help,options,resize,winpos,winsize"
 " 保存undo历史
@@ -197,6 +195,9 @@ if expand("%:e") == 'txt'
 else
     set textwidth=0
 endif
+" 设置vim的编码方式
+set encoding=utf-8
+set fileencoding=utf-8
 
 " 使vim打开文件时定位到上次退出时光标所在位置
 autocmd BufReadPost *
@@ -249,7 +250,7 @@ function! SetFileInfo()
     call setline(1, "/*************************************************************************") 
     call append(line("."), "	> File Name     : ".expand("%")) 
     call append(line(".")+1, "	> Author        : huangtao") 
-    call append(line(".")+2, "	> Mail          : jxht929@126.com") 
+    call append(line(".")+2, "	> Mail          : cyxhp5@gmail.com") 
     call append(line(".")+3, "	> Created Time  : ".strftime("%c")) 
     call append(line(".")+4, "	> Description   : ")
     call append(line(".")+5, " ************************************************************************/") 
@@ -320,8 +321,7 @@ let g:protodefprotogetter='~/.vim/bundle/vim-protodef/pullproto.pl'
 let g:disable_protodef_sorting=1
 
 " vim-fswitch : 快速跳转到对应头文件
-" 设置跳转快捷键
-nnoremap <leader>sw :FSHere<CR>
+nnoremap <silent> <leader>sw :FSHere<CR>
 
 " vim-signature : 书签可视化工具
 " 设置快捷键
@@ -426,11 +426,17 @@ let g:UltiSnipsJumpBackwardTrigger="<leader><S-tab>"
 
 " YouCompleteMe : 代码补全
 " 设置跳转到声明和定义的快捷键
-nnoremap <leader>ji :YcmCompleter GoToInclude<CR>
-nnoremap <leader>jc :YcmCompleter GoToDeclaration<CR>
-nnoremap <leader>jd :YcmCompleter GoToDefinition<CR>
+nnoremap <silent> <leader>ji :YcmCompleter GoToInclude<CR>
+nnoremap <silent> <leader>jc :YcmCompleter GoToDeclaration<CR>
+nnoremap <silent> <leader>jd :YcmCompleter GoToDefinition<CR>
 " YCM 集成 OmniCppComplete 补全引擎，设置其快捷键
 inoremap <leader>; <C-c>a
+" 设置在语法错误中跳转快捷键
+nnoremap <silent> <leader>el :ll<CR>        " 显示错误详细信息
+nnoremap <silent> <leader>en :lnext<CR>     " 跳到下一个错误位置
+nnoremap <silent> <leader>ep :lprevious<CR> " 跳到上一个错误位置
+" 允许 YCM 使用 FixIt 自动修改错误
+nnoremap <silent> <leader>fx :YcmCompleter FixIt<CR>
 " YCM 补全菜单配色
 highlight Pmenu ctermfg=67 guifg=#465457 guibg=#000000                  " 菜单
 highlight PmenuSel ctermfg=81 ctermbg=238 guifg=#AFD700 guibg=#403D3D   " 选中项
@@ -453,6 +459,8 @@ let g:ycm_cache_omnifunc=0
 let g:ycm_seed_identifiers_with_syntax=1
 " 取消诊断参数数量限制
 let g:max_diagnostics_to_display=0
+" 允许 YCM 在语法错误中跳转
+let g:ycm_always_populate_location_list=1
 
 " NERDtree : 显示文件列表
 " 设置快捷键显示/隐藏NERDtree窗口
@@ -471,7 +479,7 @@ let NERDTreeAutoDeleteBuffer=1
 " MiniBufExplorer : 管理buffer窗口
 " 设置快捷键显示/隐藏minibufexplore窗口
 nnoremap <leader>bl :MBEToggle<CR>
-" 设置当前激活buffer配色
+" 设置激活的buffer标签颜色
 highlight link MBEVisibleNormal Statement
 highlight link MBEVisibleChanged Statement
 highlight link MBEVisibleActiveNormal Statement
@@ -497,8 +505,8 @@ nnoremap <leader>ud :GundoToggle<CR>
 " 让gundo使用python3
 let g:gundo_prefer_python3=1
 
-" vim-youdao-translater : 使用有道在线词典实现翻译
-" 分别设置在一般模式、可视模式和命令模式下的查询快捷键
+" vim-youdao-translater : 在vim中使用有道在线翻译
+" 分别设置在一般模式、可视模式以及命令模式下翻译的快捷键
 nnoremap <silent> <leader>tn :<C-u>Ydc<CR>
 vnoremap <silent> <leader>tv :<C-u>Ydv<CR>
 noremap <leader>tc :<C-u>Yde<CR>
@@ -507,19 +515,6 @@ noremap <leader>tc :<C-u>Yde<CR>
 " 设置切换行号显示模式快捷键
 nnoremap <silent> <leader>no :set relativenumber<CR>
 nnoremap <silent> <leader>nc :set relativenumber!<CR>
-
-" VimFold4C : 适用于c/c++的折叠插件
-let g:fold_options = {
-   \ 'fallback_method' : { 'line_threshold' : 2000, 'method' : 'syntax' },
-   \ 'fold_blank': 0,
-   \ 'fold_includes': 0,
-   \ 'max_foldline_length': 'win',
-   \ 'merge_comments' : 1,
-   \ 'show_if_and_else': 1,
-   \ 'strip_namespaces': 1,
-   \ 'strip_template_arguments': 1
-   \ }
-
 
 
 """"""""""""""""" Behind this line is for some test function """""""""""""""""
